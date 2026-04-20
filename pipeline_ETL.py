@@ -39,14 +39,11 @@ connexion.execute('''
         ordre     INTEGER)
 ''')
 connexion.commit()
-connexion.execute('INSERT INTO source (nom) VALUES (?)', ('Data1.csv',))
-connexion.commit()
 
 print('ok')
 
 connexion.execute(
-    'INSERT INTO source (nom, url) VALUES (?, ?)',
-    ('Data1.csv', 'Data1.csv'))
+    'INSERT INTO source (nom, url) VALUES (?, ?)',('Data1.csv', 'Data1.csv'))
 connexion.commit()
 
 print('ok2')
