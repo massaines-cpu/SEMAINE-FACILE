@@ -54,7 +54,8 @@ for row_id, ligne in enumerate(data.iterrows()):
         valeur = str(ligne[1][colonne])
         connexion.execute('INSERT INTO data (value, column_id, row_id, ordre) VALUES (?, ?, ?, ?)',
                           (valeur, col_id[colonne], row_id, ordre))
-
+connexion.commit()
+connexion.close()
 print('fini 1')
 
 # ouvrir le fichier
