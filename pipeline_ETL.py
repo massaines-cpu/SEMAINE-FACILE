@@ -42,10 +42,17 @@ print('ok2')
 
 for colonne in colonnes:
     type_colonne = str(data[colonne].dtype)
-    connexion.execute('INSERT INTO colonne (label, type, source_id) VALUES (?, ?, ?)', (colonne, type_colonne, id_source))
+    connexion.execute('INSERT INTO colonne (label, type, source_id) VALUES (?, ?, ?)',
+                      (colonne, type_colonne, id_source))
     connexion.commit()
 
 print('ok3')
+
+for row_id, ligne in enumerate(data.iterrows()):
+    for colonne in colonnes:
+        valeur = str(ligne[1][colonne])
+        connexion.execute('INSERT INTO data (value, column_id, row_id, ordre) VALUES (?, ?, ?, ?)',
+                          (valeur, ordre +1, row_id, ordre))
 # ouvrir le fichier
 # ajoute la source nom du fichier etc
 # recup la liste des col avec leur types
