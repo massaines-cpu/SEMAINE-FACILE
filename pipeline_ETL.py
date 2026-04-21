@@ -39,20 +39,24 @@ connexion.commit()
 id_source = curseur.lastrowid
 
 print('ok2')
-
+col_id = {}
 for colonne in colonnes:
-    type_colonne = str(data[colonne].dtype)
-    connexion.execute('INSERT INTO colonne (label, type, source_id) VALUES (?, ?, ?)',
+    type_colonne = str(colonnes.dtype)
+    c = connexion.execute('INSERT INTO colonne (label, type, source_id) VALUES (?, ?, ?)',
                       (colonne, type_colonne, id_source))
     connexion.commit()
+    col_id[colonne] = c.lastrowid
 
 print('ok3')
 
 for row_id, ligne in enumerate(data.iterrows()):
-    for colonne in colonnes:
+    for ordre, colonne in enumerate(colonnes):
         valeur = str(ligne[1][colonne])
         connexion.execute('INSERT INTO data (value, column_id, row_id, ordre) VALUES (?, ?, ?, ?)',
-                          (valeur, ordre +1, row_id, ordre))
+                          (valeur, col_id[colonne], row_id, ordre))
+
+print('fini 1')
+
 # ouvrir le fichier
 # ajoute la source nom du fichier etc
 # recup la liste des col avec leur types
