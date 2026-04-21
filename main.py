@@ -1,8 +1,11 @@
 from fastapi import FastAPI, UploadFile
 import pandas as pd
 import sqlite3
+from router import router as sources_router
+
 
 app = FastAPI()
+app.include_router(sources_router)
 
 @app.post('/upload')
 def charger_csv(fichier: UploadFile):

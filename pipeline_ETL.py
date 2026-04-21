@@ -7,7 +7,7 @@ data = pd.read_csv(fichier_csv)
 colonnes = data.columns
 print(colonnes)
 
-connexion = sqlite3.connect("egg_base.db")
+connexion = sqlite3.connect('egg_base.db')
 
 connexion.execute('''CREATE TABLE IF NOT EXISTS source (
         id    INTEGER PRIMARY KEY,
@@ -33,7 +33,8 @@ connexion.commit()
 
 print('ok')
 
-curseur = connexion.execute('INSERT INTO source (nom, url) VALUES (?, ?)',('Data1.csv', 'Data1.csv'))
+curseur = connexion.execute('INSERT INTO source (nom, url) VALUES (?, ?)',
+                            ('Data1.csv', 'Data1.csv'))
 connexion.commit()
 
 id_source = curseur.lastrowid
